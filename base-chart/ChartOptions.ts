@@ -15,6 +15,7 @@ export interface ChartOptions {
 }
 
 export interface SeriesOptionsType {
+  color: any;
   name: string;
   data: number[];
 }
@@ -35,6 +36,8 @@ export interface TooltipOptions {
 export interface AxisOptions {
   title?: AxisTitle;
   labels?: AxisLabels;
+  gridLineWidth: number;
+  lineWidth: number;
 }
 
 export interface AxisTitle {
@@ -50,6 +53,20 @@ export interface LegendOptions {
   align?: string;
   verticalAlign?: string;
   enabled?: boolean;
+  x?: number;
+  y?: number;
+  floating?: boolean;
+  backgroundColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  itemStyle?: {
+    color: string;
+    fontSize: string;
+    fontFamily: string;
+    fontStyle: string;
+    fontWeight: string;
+    lineHeight: string;
+  };
 }
 
 export interface PlotOptions {
@@ -59,6 +76,7 @@ export interface PlotOptions {
 export interface ColumnOptions {
   stacking?: string;
   dataLabels?: DataLabelsOptions;
+  pointWidth?: number;
 }
 
 export interface DataLabelsOptions {

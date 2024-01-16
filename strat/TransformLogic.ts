@@ -12,24 +12,43 @@ import {
 import {LegendOptions, PlotOptions} from "highcharts";
 */
 
+
+
 export class TransformLogic implements ChartOptions {
 
   constructor(data: SectorData, chartType: string) {
+    // Define colors for each department
+    const departmentColors = {
+      department1: '#BF50BF',
+      department2: 'blue',
+      department3: 'green',
+      department4: 'yellow'
+    };
+
 
       const categories: string[] = data.fiscalYears.map(year => year.year);
 
     // Setting legend based on the number of categories
-      const seriesData: SeriesOptionsType[] = data.fiscalYears[0].sectors.map(department => {
+      const seriesData: SeriesOptionsType[] = data.fiscalYears[0].sectors.map((department) => {
         const departmentData: number[] = [];
         data.fiscalYears.forEach(year => {
           const deptForYear = year.sectors.find(d => d.name === department.name);
           departmentData.push(deptForYear ? deptForYear.aumValue : 0);
         });
+        const colorKey = department.name.toLowerCase();
+        const color = (departmentColors as Record<string, string>)[colorKey] || 'gray';
+/*
+        const color = this.departmentColorService.getColor(department.name);
+*/
+
+        console.log(`Department: ${department.name}, Color: ${color}`);
 
         return {
           type: 'column',
           name: department.name,
-          data: departmentData
+          data: departmentData,
+          color: color
+
         };
       });
 
@@ -70,13 +89,17 @@ export class TransformLogic implements ChartOptions {
     this.xAxis = {
       title: {
         text: 'Fiscal Years'
-      }
+      },
+      gridLineWidth:0,
+      lineWidth:0
     };
 
     this.yAxis = {
      /* title: {
         text: 'AUM Value'
       }*/
+      gridLineWidth:0,
+      lineWidth:0
     };
 
 /*
@@ -95,6 +118,8 @@ export class TransformLogic implements ChartOptions {
   YAxisTitle: string ;
 */
 
+
+
   // Function to determine legend position based on the number of categories
   private setLegend(chartType: string): void {
     console.log('Chart Type:', chartType);
@@ -104,16 +129,40 @@ export class TransformLogic implements ChartOptions {
       : {
         align: 'left',
         verticalAlign: 'top',
-        enabled:true
+        enabled:true,
+        x: 0,
+        y: 0,
+        floating: true,
+        backgroundColor: 'white',
+        borderColor: '#CCC',
+        itemStyle: {
+          color: '#33F48',
+          fontSize: '15px',
+          fontFamily: 'Roboto',
+          fontStyle: 'normal',
+          fontWeight: '500',
+          lineHeight: 'normal',
+        },
         // You can customize these values based on your logic
+     //Add the legendItemClick event handler
+        events: {
+          legendItemClick: (event: LegendItemClickEvent) => {
+            // Get the corresponding series index
+            const seriesIndex = event.target.index;
+
+            // Toggle series visibility in the percentage chart
+            this.togglePercentageChartSeriesVisibility(seriesIndex, percentageChart);
+          }
+        }
       } as LegendOptions;
 
 
   }
-// Function to toggle series visibility in the percentage chart
-  private togglePercentageChartSeriesVisibility(seriesIndex: number): void {
+  // Function to toggle series visibility in the percentage chart
+  private togglePercentageChartSeriesVisibility(seriesIndex: number, percentageChart: Chart): void {
     // Logic to toggle series visibility in the percentage chart
-    // You may need to adapt this based on your application structure
+    const percentageSeries = percentageChart.series[seriesIndex];
+    percentageSeries.setVisible(!percentageSeries.visible);
   }
   private setPlotOptions(chartType: string): void {
     console.log('Chart Type:', chartType);

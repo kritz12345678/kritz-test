@@ -35,7 +35,8 @@ export class ChartBuilder {
     const transformedSeries: Highcharts.SeriesOptionsType[] = series.map(item => ({
       type: 'column',
       name: item.name,
-      data: item.data
+      data: item.data,
+      color: item.color
     }));
 
     this.chartOptions.series = transformedSeries;

@@ -24,16 +24,16 @@ export class StratService {
         {
           year: 'Year 1',
           sectors: [
-            { name: 'Department A', aumValue: 1000000 },
-            { name: 'Department B', aumValue: 1500000 },
+            { name: 'department1', aumValue: 1000000 },
+            { name: 'department2', aumValue: 1500000 },
             // Add other departments as needed
           ]
         },
         {
           year: 'Year 2',
           sectors: [
-            { name: 'Department A', aumValue: 1100000 },
-            { name: 'Department B', aumValue: 1550000 },
+            { name: 'department1', aumValue: 1100000 },
+            { name: 'department2', aumValue: 1550000 },
             // Add other departments as needed
           ]
         },
