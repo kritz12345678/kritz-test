@@ -1,18 +1,229 @@
-
-<h1>hello</h1>
-<div id="container1"><app-strat [chartID]=chart2> </app-strat></div>
-<!--
-<div id="container1"><app-strat [chartID]=chart2 [chartType]="Percentstackedcolchart"></app-strat></div>
--->
-<div id="ss"></div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-
-<router-outlet></router-outlet>
+<div class="flex flex-col self-stretch px-12 py-8 bg-stone-50 max-md:px-5">
+      <div class="text-3xl leading-9 text-black max-md:max-w-full">
+        Portfolio Construction | Vintage
+      </div>
+      <div class="pb-12 mt-9 max-md:pr-5 max-md:max-w-full">
+        <div class="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+          <div class="flex flex-col w-[71%] max-md:ml-0 max-md:w-full">
+            <div
+              class="flex flex-col px-9 py-6 w-full bg-white rounded-xl border border-solid border-[color:var(--M3-sys-light-outline-variant,#CAC4D0)] max-md:px-5 max-md:mt-6 max-md:max-w-full"
+            >
+              <div
+                class="flex gap-5 justify-between w-full font-medium max-md:flex-wrap max-md:max-w-full"
+              >
+                <div
+                  class="flex-auto my-auto text-xl tracking-normal leading-8 text-gray-700"
+                >
+                  Deployment by Vintage
+                </div>
+                <div
+                  class="flex gap-2.5 justify-between pl-20 text-sm tracking-normal leading-5 whitespace-nowrap"
+                >
+                  <div
+                    class="flex gap-2.5 justify-center py-1 pr-1 pl-4 my-auto text-gray-700 bg-fuchsia-50 border border-solid border-[color:var(--M3-sys-light-outline-variant,#CAC4D0)] rounded-[40px]"
+                  >
+                    <div class="grow my-auto">Data Labels</div>
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/fd1681f7f051cb7f0606064e220e63497e01b98a610bb27e5f035a5838f4b721?"
+                      class="aspect-[1.61] w-[52px]"
+                    />
+                  </div>
+                  <div class="flex gap-0 justify-between py-1 text-center">
+                    <div
+                      class="flex flex-col justify-center text-gray-700 bg-violet-50 rounded-3xl border border-solid aspect-[1.75] border-neutral-300"
+                    >
+                      <div class="flex gap-1 justify-between px-3.5 py-2.5">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/19b31193029df8af6d394d61fa9a5142ee66242f881dcbad6d74044d28cda3df?"
+                          class="self-start aspect-square w-[18px]"
+                        />
+                        <div>5Y</div>
+                      </div>
+                    </div>
+                    <div
+                      class="justify-center px-5 py-2.5 bg-fuchsia-50 rounded-none border border-solid aspect-[1.75] border-neutral-300 text-zinc-500 max-md:px-5"
+                    >
+                      10Y
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex z-10 gap-5 self-start pt-5 text-xs font-medium text-gray-700"
+              >
+                <div class="flex gap-2 justify-between whitespace-nowrap">
+                  <div class="w-4 h-4 bg-blue-500 rounded-[30px]"></div>
+                  <div>DPE</div>
+                </div>
+                <div class="flex gap-2 justify-between">
+                  <div class="w-4 h-4 bg-teal-400 rounded-[30px]"></div>
+                  <div>PE Funds</div>
+                </div>
+                <div class="flex gap-2 justify-between">
+                  <div class="w-4 h-4 bg-lime-400 rounded-[30px]"></div>
+                  <div>PE Asia</div>
+                </div>
+                <div class="flex gap-2 justify-between whitespace-nowrap">
+                  <div class="w-4 h-4 bg-orange-400 rounded-[30px]"></div>
+                  <div class="grow">Secondaries</div>
+                </div>
+                <div class="flex gap-2 justify-between whitespace-nowrap">
+                  <div class="w-4 h-4 bg-fuchsia-600 rounded-[30px]"></div>
+                  <div>GE</div>
+                </div>
+              </div>
+              <div
+                class="flex gap-0 justify-between max-md:flex-wrap max-md:max-w-full"
+              >
+                <div
+                  class="self-end mt-96 text-xs font-semibold tracking-wide leading-4 text-center text-slate-500 max-md:mt-10"
+                >
+                  Vintage
+                  <br />
+                  IRR
+                </div>
+              </div>
+              <div
+                class="mt-5 text-xs italic tracking-wide leading-4 text-gray-500 max-md:max-w-full"
+              >
+                All values are Billions CAD
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col ml-5 w-[29%] max-md:ml-0 max-md:w-full">
+            <div
+              class="flex flex-col p-6 mx-auto w-full text-sm leading-5 bg-white rounded-xl border border-solid border-[color:var(--M3-sys-light-outline-variant,#CAC4D0)] max-md:px-5 max-md:mt-6"
+            >
+              <div
+                class="flex gap-5 justify-between text-2xl leading-7 text-gray-700"
+              >
+                <div class="flex-auto">Top 10 Paid in Capital</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/bec32f1caa3144e3606e3132df8c6ef25b6121a0bc03a7800f53892e17d4fa5e?"
+                  class="self-start aspect-square w-[18px]"
+                />
+              </div>
+              <div
+                class="flex gap-2.5 justify-center mt-2.5 text-base font-medium tracking-normal leading-6 text-gray-700"
+              >
+                <div class="text-gray-500 whitespace-nowrap">XX YTD</div>
+                <div>|</div>
+                <div class="flex-auto">Selected Group</div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 mt-2.5 border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    Informatica Corp
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">
+                    $3,347
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 text-gray-800 border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal">
+                    London Stock Exchange
+                  </div>
+                  <div class="tracking-wide text-right">$1,218</div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 whitespace-nowrap border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    SportRadar
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">
+                    $1,077
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 whitespace-nowrap border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    WME-IMG
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">$566</div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    Aereal Bank
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">$453</div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    Informatica Corp
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">$283</div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    Informatica Corp
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">$277</div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    Informatica Corp
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">$119</div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    Informatica Corp
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">$107</div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center px-3 py-4 border-b border-solid border-b-[color:var(--M3-ref-neutral-neutral94,#F3EDF7)]"
+              >
+                <div class="flex gap-5 justify-between">
+                  <div class="flex-auto font-medium tracking-normal text-black">
+                    Informatica Corp
+                  </div>
+                  <div class="tracking-wide text-right text-gray-800">$57</div>
+                </div>
+              </div>
+              <div
+                class="mt-2.5 text-xs italic tracking-wide leading-4 text-gray-500 whitespace-nowrap"
+              >
+                All values are Millions CAD
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
