@@ -1,48 +1,165 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="holdings-sidebar-holdings-sidebar">
-        <div class="holdings-sidebar-frame203">
-          <div class="holdings-sidebar-frame201">
-            <div class="holdings-sidebar-frame207 d-flex justify-content-between">
-              <div class="d-flex align-items-start">
-                <span class="holdings-sidebar-text">Paid Ten</span>
-                <div class="ml-3">
-                  <span class="holdings-sidebar-text">{{ category }}</span>
-                  <span class="text-muted mx-2">|</span>
-                  <span class="holdings-sidebar-text">{{ series }}</span>
-                </div>
-              </div>
-              <div class="holdings-sidebar-frame206">
-                <div class="holdings-sidebar-holdings-close">
-                  <button class="btn btn-danger" (click)="close()">X</button>
-                </div>
-              </div>
-            </div>
-            <div class="holdings-sidebar-holdings-labels">
-              <div class="col-auto">
-                <span class="holdings-sidebar-text06">Name</span>
-              </div>
-              <div class="col-auto">
-                <span class="holdings-sidebar-text07">Value</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="holdings-sidebar-top10-holdings">
-          <div class="holdings-sidebar-top10-holdings-table">
-            <div *ngFor="let holding of top10Holdings" class="holdings-sidebar-holdings-row">
-              <div class="holdings-sidebar-frame182">
-                <div class="holdings-sidebar-frame181">
-                  <span class="holdings-sidebar-text09">{{ holding.reporting_name }}</span>
-                  <span class="holdings-sidebar-text11">${{ holding.paid_in_ytd }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <span class="holdings-sidebar-text49">. All values are Millions CAD</span>
-      </div>
-    </div>
-  </div>
-</div>
+:host {
+  display: contents;
+}
+
+.holdings-sidebar-holdings-sidebar {
+  gap: 30px;
+  display: flex;
+  padding: 25px;
+  overflow: hidden;
+  position: relative;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 1px solid #CAC4D0;
+  background: #FFF;
+  width: 28%;
+}
+
+.holdings-sidebar-frame203 {
+  gap: 10px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.holdings-sidebar-frame201 {
+  gap: 25px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.holdings-sidebar-frame207 {
+  gap: 10px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+  justify-content: space-between;
+}
+
+.holdings-sidebar-text {
+  color: #333F48;
+  font-family: Roboto;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.holdings-sidebar-frame206 {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.holdings-sidebar-holdings-close {
+  top: 0px;
+  left: 0px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.holdings-sidebar-holdings-labels {
+  gap: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.holdings-sidebar-text06,
+.holdings-sidebar-text07 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+
+.holdings-sidebar-top10-holdings {
+  display: flex;
+  overflow: hidden;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
+.holdings-sidebar-top10-holdings-table {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
+.holdings-sidebar-holdings-row {
+  gap: 8px;
+  width: 35vh;
+  display: flex;
+  padding: 10px 12px;
+  overflow: hidden;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-color: rgba(243, 237, 247, 1);
+  border-style: solid;
+  border-width: 0 0 1px;
+  flex-direction: column;
+}
+
+.holdings-sidebar-frame182 {
+  gap: 4px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
+.holdings-sidebar-frame181 {
+  gap: 64px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.holdings-sidebar-text09 {
+  height: auto;
+  flex-grow: 1;
+  color: #000;
+  font-family: Roboto;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.holdings-sidebar-text11 {
+  color: #000;
+  height: auto;
+  text-align: right;
+  line-height: 20px;
+}
+
+.holdings-sidebar-text49 {
+  color: #636D73;
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  margin-top: 30px;
+}
