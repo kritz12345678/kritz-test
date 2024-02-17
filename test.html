@@ -101,3 +101,65 @@
   letter-spacing: 0.5px;
   margin-top: 30px;
 }
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-8 holdings-sidebar-frame203">
+      <div class="holdings-sidebar-frame201">
+        <div class="holdings-sidebar-frame207">
+          <span class="holdings-sidebar-text">
+            <span>{{holdingName}}</span>
+          </span>
+          <div class="holdings-sidebar-frame206">
+            <div class="holdings-sidebar-holdings-close">
+              <button class="btn btn-secondary" (click)="close()">X</button>
+            </div>
+          </div>
+        </div>
+        <div class="holdings-sidebar-holdings-labels">
+          <div class="holdings-sidebar-frame205">
+            <!--<span class="holdings-sidebar-text02 M3titlemedium">
+              <span>FY</span>
+            </span>
+            --><span class="holdings-sidebar-text04 M3titlemedium">
+              <span>{{categoryyear}}</span>
+            </span>
+          </div>
+          <span class="holdings-sidebar-text06 M3titlemedium">{{ text }}</span>
+          <span class="holdings-sidebar-text07 M3titlemedium">
+            <span>{{seriesname}}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 holdings-sidebar-top10-holdings">
+      <div class="holdings-sidebar-top10-holdings-table">
+        <div *ngFor="let holding of top10Holdings">
+          <div class="holdings-sidebar-holdings-row">
+            <div class="holdings-sidebar-frame182">
+              <div class="holdings-sidebar-frame181">
+                <span class="holdings-sidebar-text09 M3titlesmall">
+                  <span>{{holding.reporting_name}}</span>
+                </span>
+                <span class="holdings-sidebar-text11 M3bodymedium">
+                  <span>${{holding.paid_in_ytd}}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <span class="holdings-sidebar-text49">
+        <span>. All values are Millions CAD</span>
+      </span>
+    </div>
+  </div>
+</div>
+
