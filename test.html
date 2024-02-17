@@ -1,165 +1,48 @@
-/* No changes needed for :host as it doesn't have any Bootstrap equivalent */
-
-.holdings-sidebar-holdings-sidebar {
-  padding: 25px;
-  border: 1px solid #CAC4D0;
-  background: #FFF;
-  width: 28%;
-  border-radius: 12px;
-}
-
-.holdings-sidebar-frame203 {
-  display: flex;
-  flex-direction: column;
-}
-
-.holdings-sidebar-frame201 {
-  display: flex;
-  flex-direction: column;
-}
-
-.holdings-sidebar-frame207 {
-  display: flex;
-  justify-content: space-between;
-}
-
-.holdings-sidebar-text {
-  color: #333F48;
-  font-size: 1.5rem;
-}
-
-.holdings-sidebar-holdings-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.holdings-sidebar-holdings-labels {
-  display: flex;
-  justify-content: center;
-}
-
-/* No changes needed for .holdings-sidebar-frame205 as there's no Bootstrap equivalent */
-
-.holdings-sidebar-text04 {
-  color: #636D73;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-/* No changes needed for .holdings-sidebar-text06 as there's no Bootstrap equivalent */
-
-.holdings-sidebar-text07 {
-  color: #333F48;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-/* No changes needed for .holdings-sidebar-top10-holdings as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-top10-holdings-table as there's no Bootstrap equivalent */
-
-.holdings-sidebar-holdings-row {
-  border-bottom: 1px solid rgba(243, 237, 247, 1);
-}
-
-/* No changes needed for .holdings-sidebar-frame182 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-frame181 as there's no Bootstrap equivalent */
-
-.holdings-sidebar-text09 {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.holdings-sidebar-text11 {
-  text-align: right;
-}
-
-/* No changes needed for .holdings-sidebar-holdings-row01, .holdings-sidebar-frame18201, .holdings-sidebar-frame18101, .holdings-sidebar-text13, .holdings-sidebar-text15 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-holdings-row02, .holdings-sidebar-frame18202, .holdings-sidebar-frame18102, .holdings-sidebar-text17, .holdings-sidebar-text19 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-holdings-row03, .holdings-sidebar-frame18203, .holdings-sidebar-frame18103, .holdings-sidebar-text21, .holdings-sidebar-text23 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-holdings-row04, .holdings-sidebar-frame18204, .holdings-sidebar-frame18104, .holdings-sidebar-text25, .holdings-sidebar-text27 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-holdings-row05, .holdings-sidebar-frame18205, .holdings-sidebar-frame18105, .holdings-sidebar-text29, .holdings-sidebar-text31 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-holdings-row06, .holdings-sidebar-frame18206, .holdings-sidebar-frame18106, .holdings-sidebar-text33, .holdings-sidebar-text35 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-holdings-row07, .holdings-sidebar-frame18207, .holdings-sidebar-frame18107, .holdings-sidebar-text37, .holdings-sidebar-text39 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-holdings-row08, .holdings-sidebar-frame18208, .holdings-sidebar-frame18108, .holdings-sidebar-text41, .holdings-sidebar-text43 as there's no Bootstrap equivalent */
-
-/* No changes needed for .holdings-sidebar-holdings-row09, .holdings-sidebar-frame18209, .holdings-sidebar-frame18109, .holdings-sidebar-text45, .holdings-sidebar-text47 as there's no Bootstrap equivalent */
-
-.holdings-sidebar-text49 {
-  color: #636D73;
-  font-style: italic;
-  font-size: 15px;
-  letter-spacing: 0.5px;
-  margin-top: 30px;
-}
-
-
 <div class="container">
-  <div class="row">
-    <div class="col-8 holdings-sidebar-frame203">
-      <div class="holdings-sidebar-frame201">
-        <div class="holdings-sidebar-frame207">
-          <span class="holdings-sidebar-text">
-            <span>{{holdingName}}</span>
-          </span>
-          <div class="holdings-sidebar-frame206">
-            <div class="holdings-sidebar-holdings-close">
-              <button class="btn btn-secondary" (click)="close()">X</button>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="holdings-sidebar-frame203">
+                <div class="holdings-sidebar-frame201">
+                    <div class="holdings-sidebar-frame207 d-flex justify-content-between">
+                        <span class="holdings-sidebar-text">{{holdingName}}</span>
+                        <div class="holdings-sidebar-frame206">
+                            <div class="holdings-sidebar-holdings-close">
+                                <button onclick="close()">X</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="holdings-sidebar-holdings-labels">
+                        <div class="holdings-sidebar-frame205">
+                            <span class="holdings-sidebar-text04">{{categoryyear}}</span>
+                        </div>
+                        <span class="holdings-sidebar-text06">{{ text }}</span>
+                        <span class="holdings-sidebar-text07">{{seriesname}}</span>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="holdings-sidebar-holdings-labels">
-          <div class="holdings-sidebar-frame205">
-            <!--<span class="holdings-sidebar-text02 M3titlemedium">
-              <span>FY</span>
-            </span>
-            --><span class="holdings-sidebar-text04 M3titlemedium">
-              <span>{{categoryyear}}</span>
-            </span>
-          </div>
-          <span class="holdings-sidebar-text06 M3titlemedium">{{ text }}</span>
-          <span class="holdings-sidebar-text07 M3titlemedium">
-            <span>{{seriesname}}</span>
-          </span>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-8 holdings-sidebar-top10-holdings">
-      <div class="holdings-sidebar-top10-holdings-table">
-        <div *ngFor="let holding of top10Holdings">
-          <div class="holdings-sidebar-holdings-row">
-            <div class="holdings-sidebar-frame182">
-              <div class="holdings-sidebar-frame181">
-                <span class="holdings-sidebar-text09 M3titlesmall">
-                  <span>{{holding.reporting_name}}</span>
-                </span>
-                <span class="holdings-sidebar-text11 M3bodymedium">
-                  <span>${{holding.paid_in_ytd}}</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <span class="holdings-sidebar-text49">
-        <span>. All values are Millions CAD</span>
-      </span>
-    </div>
-  </div>
 </div>
 
+<div class="holdings-sidebar-top10-holdings">
+    <div class="holdings-sidebar-top10-holdings-table">
+        <div *ngFor="let holding of top10Holdings">
+            <div class="holdings-sidebar-holdings-row">
+                <div class="holdings-sidebar-frame182">
+                    <div class="holdings-sidebar-frame181">
+                        <span class="holdings-sidebar-text09">{{holding.reporting_name}}</span>
+                        <span class="holdings-sidebar-text11">${{holding.paid_in_ytd}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <span class="holdings-sidebar-text49">. All values are Millions CAD</span>
+        </div>
+    </div>
+</div>
