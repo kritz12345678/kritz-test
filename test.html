@@ -1,26 +1,72 @@
 <div class="frame211-frame211">
   <span class="frame211-text"><span>Data Labels</span></span>
-  <div class="frame211-switch">
+  <div class="frame211-switch" [@toggleAnimation]="toggleState" (click)="toggle()">
     <div class="frame211-handlecontainer">
-      <button class="frame211-handle" (click)="onToggleChange()">
+      <div class="frame211-handle">
         <i class="fas fa-eye"></i>
-      </button>
+      </div>
     </div>
   </div>
 </div>
+.frame211-switch {
+  width: 52px;
+  height: 32px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  background-color: #E0E0E0; /* Background color for the switch */
+  border-radius: 16px; /* Adjust as needed */
+  overflow: hidden;
+}
 
 .frame211-handle {
-  top: 12px;
-  left: 12px;
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  border-radius: 100px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  background-color: #FFFFFF; /* Background color for the handle */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease; /* Add transition for smooth animation */
 }
 
 .frame211-handle i {
-  color: #333F48; /* Set the color of the eye icon */
+  color: #333F48; /* Color for the eye icon */
+}
+import { Component, OnInit } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
+@Component({
+  selector: 'app-toggle-button',
+  templateUrl: './toggle-button.component.html',
+  styleUrls: ['./toggle-button.component.css'],
+  animations: [
+    trigger('toggleAnimation', [
+      state('open', style({
+        transform: 'translateX(20px)' // Slide to the right
+      })),
+      state('closed', style({
+        transform: 'translateX(0)' // Slide back to the left
+      })),
+      transition('open => closed', [
+        animate('0.3s')
+      ]),
+      transition('closed => open', [
+        animate('0.3s')
+      ])
+    ])
+  ]
+})
+export class ToggleButtonComponent implements OnInit {
+  toggleState: string = 'closed';
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  toggle() {
+    this.toggleState = this.toggleState === 'closed' ? 'open' : 'closed';
+  }
 }
