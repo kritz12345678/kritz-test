@@ -1,17 +1,19 @@
 <mat-button-toggle-group class="customyeartoggle" (change)="onDurationChange($event)">
-  <mat-button-toggle class="custom5Y" value=5>5Y</mat-button-toggle>
-  <mat-button-toggle class="custom5Y" value=10 >10Y</mat-button-toggle>
+  <mat-button-toggle class="custom5Y" value="5" [ngClass]="{'selected': selectedYear === '5'}">5Y</mat-button-toggle>
+  <mat-button-toggle class="custom5Y" value="10" [ngClass]="{'selected': selectedYear === '10'}">10Y</mat-button-toggle>
 </mat-button-toggle-group>
+
 .customyeartoggle {
   border-radius: 20px 20px 20px 20px;
   border: 1px solid var(--M3-sys-light-outline-variant, #CAC4D0);
   width: 140px;
 }
 
-.custom5Y{
-    background: var(--M3-sys-light-surface-bright, #FEF7FF);
+.custom5Y {
+  background: var(--M3-sys-light-surface-bright, #FEF7FF);
   width: 50%;
-  }
+}
+
 .selected::before {
   content: "\2713"; /* Unicode for the tick mark */
   padding-right: 5px;
