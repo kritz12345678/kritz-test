@@ -1,93 +1,18 @@
-<div class="frame211-frame211">
-  <span class="frame211-text"><span>Data Labels</span></span>
-  <div class="frame211-switch">
-<!--
-    <img [attr.src]="Track_src" [attr.alt]="Track_alt" class="frame211-track" />
--->
-    <div class="frame211-handlecontainer">
-      <mat-slide-toggle class="frame211-handle" (change)="onToggleChange($event)"></mat-slide-toggle>
-<!--      <img
-        [attr.src]="Handle_src"
-        [attr.alt]="Handle_alt"
-        class="frame211-handle"
-      />-->
-    <!--  <img
-        [attr.src]="VisibilityOffSharp_src"
-        [attr.alt]="VisibilityOffSharp_alt"
-        class="frame211-visibility-off-sharp"
-      />-->
-    </div>
-  </div>
-</div>
-
-
-
-:host {
-  display: contents;
-}
-.frame211-frame211 {
-  flex-shrink: 0;
-  display: flex;
-  height: 50px;
-  padding: var(--BarRadius0, 0px) var(--BarRadius, 4px) var(--BarRadius0, 0px) 15px;
-  justify-content: center;
-  align-items: center;
-  gap: var(--MidBarHeight, 10px);
-  border-radius: 40px;
+<mat-button-toggle-group class="customyeartoggle" (change)="onDurationChange($event)">
+  <mat-button-toggle class="custom5Y" value=5>5Y</mat-button-toggle>
+  <mat-button-toggle class="custom5Y" value=10 >10Y</mat-button-toggle>
+</mat-button-toggle-group>
+.customyeartoggle {
+  border-radius: 20px 20px 20px 20px;
   border: 1px solid var(--M3-sys-light-outline-variant, #CAC4D0);
-  background: var(--M3-sys-light-surface-bright, #FEF7FF);
+  width: 140px;
 }
-.frame211-text {
-  color: var(--brand-charcoal-main, #333F48);
-  /* M3/label/large */
-  font-family: Roboto;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px; /* 142.857% */
-  letter-spacing: 0.1px;
-}
-.frame211-switch {
-  width: 52px;
-  height: 32px;
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-shrink: 0;
-}
-.frame211-track {
-  top: 0px;
-  left: 0px;
-  width: 52px;
-  height: 32px;
-  position: absolute;
-  border-color: rgba(147, 97, 214, 1);
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 100px;
-}
-.frame211-handlecontainer {
-  top: -8px;
-  left: -8px;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  position: absolute;
-  align-items: flex-start;
-  flex-shrink: 0;
-}
-.frame211-handle {
-  top: 12px;
-  left: 12px;
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  border-radius: 100px;
-}
-.frame211-visibility-off-sharp {
-  top: 16px;
-  left: 16px;
-  width: 16px;
-  height: 16px;
-  position: absolute;
+
+.custom5Y{
+    background: var(--M3-sys-light-surface-bright, #FEF7FF);
+  width: 50%;
+  }
+.selected::before {
+  content: "\2713"; /* Unicode for the tick mark */
+  padding-right: 5px;
 }
