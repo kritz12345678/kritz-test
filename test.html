@@ -1,42 +1,41 @@
 <div class="container-fluid">
   <div class="row justify-content-center" *ngIf="d && !isLoading">
     <div class="col-lg-10 col-md-12">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="d-flex justify-content-between">
-            <span class="frame1-text">swahdhaj | v</span>
+      <div class="frame1-frame1">
+        <div class="frame1-frame20 d-flex justify-content-between">
+          <span class="frame1-text">swahdhaj | v</span>
+          <div class="frame1-label-toggle">
+            <app-dsnds-toggle (dataLabelVisbilityChange)="onDatalabelvisibilitychange($event)"></app-dsnds-toggle>
+            <app-nsdb-toggle-button (selectedDuration)="onselectedyear($event)"></app-year-nsdb-button>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="d-flex justify-content-end">
-            <div class="frame1-label-toggle">
-              <app-dsnds-toggle (dataLabelVisbilityChange)="onDatalabelvisibilitychange($event)"></app-dsnds-toggle>
-              <app-nsdb-toggle-button (selectedDuration)="onselectedyear($event)"></app-year-nsdb-button>
+        <div class="frame1-frame31 row">
+          <div class="col-md-8">
+            <div class="frame1-charts">
+              <div class="frame1-frame55 d-flex justify-content-between">
+                <span class="frame1-text02">Deployment by tyuuu</span>
+              </div>
+              <div id="nv">
+                <app-stacked-col-chart (seriesClick)="handleChartSeriesClick($event)" [data]=Data [chartId]=chartid [secondaryXaxis]= secondaryAxis [clickevent]=true></app-stacked-col-chart>
+              </div>
+              <div class="frame1-footnotes mt-3">
+                <span class="frame1-text08">* All values are Billions CAD</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="frame1-y-axis-label">
+              <span class="frame1-text020">
+                <span>seco</span>
+                <br />
+                <span>ppp</span>
+              </span>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-md-8">
-          <div class="frame1-charts">
-            <div class="d-flex justify-content-between">
-              <span class="frame1-text02">Deployment by tyuuu</span>
-            </div>
-            <div id="nv">
-              <app-stacked-col-chart (seriesClick)="handleChartSeriesClick($event)" [data]=Data [chartId]=chartid [secondaryXaxis]= secondaryAxis [clickevent]=true></app-stacked-col-chart>
-            </div>
-          </div>
-          <div class="frame1-footnotes mt-3">
-            <span class="frame1-text08">* All values are Billions CAD</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="frame1-y-axis-label">
-            <span class="frame1-text020">
-              <span>seco</span>
-              <br />
-              <span>ppp</span>
-            </span>
+        <div class="row mt-3">
+          <div class="col">
+            <app-holdingssidebar *ngIf="showTop10Holdings" [data]="topHoldingsByYearAndCategory" [seriesname]="seriesName" [categoryyear]="category" (closeEvent)="hideTop10Holdings()"></app-holdingssidebar>
           </div>
         </div>
       </div>
