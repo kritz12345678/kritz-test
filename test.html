@@ -14,7 +14,7 @@
     <div class="col-lg-8 frame1-charts">
       <!-- First row in the first column -->
       <div class="row mt-4">
-        <div class="col">
+        <div class="col px-5 py-2">
           <h2><span class="frame1-text02 ">
             <span>
               Deployment by Vintage
@@ -24,11 +24,12 @@
         </div>
         <div class="col text-right">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
               <app-datalabel-toggle (dataLabelVisbilityChange)="onDatalabelvisibilitychange($event)"></app-datalabel-toggle>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
               <app-year-toggle-button (selectedDuration)="onselectedyear($event)"></app-year-toggle-button>
             </div>
           </div>
@@ -36,7 +37,7 @@
       </div>
 
       <!-- Second row in the first column -->
-      <div class="row mt-4">
+      <div class="row mt-4 flex-grow-1">
         <div class="col-1 pb-4 px-4">
           <div class="frame1-y-axis-label">
           <span class="frame1-text020">
@@ -69,10 +70,6 @@
     </div>
   </div>
 </div>
-
-
-
-
 .chart-setup {
   height: 50vh; /* 90% of the original 500px */
   width: 100%; /* 90% of the original 100% */
