@@ -1,126 +1,20 @@
-<div class="container-fluid">
-  <!-- Heading -->
-  <div class="row mt-4 px-5">
-    <div class="col">
-       <span class="frame1-text">
-        <span>Portfolio Construction | Sector</span>
+  <div class="bg-white rounded-3 border border-1 paid-in-capital h-100">
+    <div class="col-12 row justify-content-center">
+      <div class="col-11 d-flex">
+        <p class="text-black text-opacity-50 fs-6 fw-normal font-family-Roboto align-items-center col-12 px-4 mt-3 py-2">
+          Paid in Capital
+        </p>
+      </div>
+      <div class="col-11 d-flex">
+          <p class="text-black fs-2 fw-normal font-family-Roboto col-12 m-0 px-4 ">
+            <span>${{paidinCapital}}B</span>
+          </p>
+      </div>
+      <div class="col-11 py-3">
+          <span class="paid-in-capital-text4 px-4">
+        <span>${{commitment}}B Committed</span>
       </span>
     </div>
   </div>
-
-  <!-- Main content -->
-
-  <div class="row mt-5 px-5">
-    <!-- First column -->
-    <div class="col-lg-8 frame1-charts" *ngIf="sectorData">
-      <!-- First row in the first column -->
-      <div class="row mt-4">
-        <div class="col-md-12 col-lg-12  col-xs-5 px-md-5 py-2">
-          <h2><span class="frame1-text02 ">
-           <span>
-              Sector Weightings
-            </span>
-          </span>
-          </h2>
-        </div>
-      </div>
-      <!-- Second row in the first column -->
-      <div class="row mt-2 flex-grow-1 px-4">
-        <div id="sectorchart1" class="col-12">
-          <app-barchart (seriesClick)="handleChartSeriesClick($event)" [data]=sectorData [chartId]=sectorchartid></app-barchart>
-        </div>
-        <div class="col-12 px-4">
-          <div class="frame1-footnotes">
-          <span class="frame1-text08">
-            <span>* </span>
-            <span>Others Include Fund of Funds, Real Estate and Utilities</span>
-          </span>
-          </div>
-        </div>
-      </div>
-      </div>
-
-  </div>
-    <!-- Second column -->
-    <div class="col-lg-4">
-      <!-- Top 10 Holding component -->
-      <!-- Example placeholder, replace with your component -->
-      <app-holdingssidebar *ngIf="showTop10Holdings"  [holdingName]=holdingHeader [switchcategoryandseries]=true [data]="topHoldingsByYearAndCategory" [seriesname]=seriesName [categoryyear]=category (closeEvent)="hideTop10Holdings()" [year]=false></app-holdingssidebar>
-    </div>
   </div>
 
-:host {
-  display: contents;
-}
-
-.frame1-text {
-  color: #000;
-  /* M3/headline/medium */
-  font-family: Roboto;
-  font-size: 1.5rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 36px; /* 128.571% */
-}
-.frame1-charts {
-  width:55vw;
-  border-radius: 12px;
-  border: 1px solid var(--M3-sys-light-outline-variant, #CAC4D0);
-  background: var(--M3-white, #FFF);
-}
-.frame1-text02 {
-  color: var(--brand-charcoal-main, #333F48);
-  font-feature-settings: 'clig' off, 'liga' off;
-
-  /* Typography/H6 */
-  font-family: Roboto;
-  font-size: 1.3rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 160%; /* 32px */
-  letter-spacing: 0.15px;
-}
-
-.frame1-footnotes {
-  display: flex;
-  padding: 20px 0;
-  align-self: stretch;
-  align-items: flex-end;
-  flex-shrink: 0;
-}
-.frame1-text08 {
-  color: rgba(99, 109, 115, 1);
-  height: auto;
-  font-size: 14px;
-  font-style: italic;
-  text-align: left;
-  font-family: Roboto;
-  font-weight: 400;
-  line-height: 16px;
-  font-stretch: normal;
-  text-decoration: none;
-}
-
-
-.frame1-y-axis-label {
-  justify-content: flex-end;
-  margin-top: 23rem;
-}
-.frame1-text020 {
-  color: var(--M3-sys-light-primary, #6750A4);
-  text-align: center;
-
-  /* M3/label/medium - prominent */
-  font-family: Roboto;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 16px; /* 133.333% */
-  letter-spacing: 0.5px;
-}
-
-
-
-.spinner{
-  margin-left: 80px;
-}
