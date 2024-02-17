@@ -1,39 +1,87 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="holdings-sidebar-holdings-sidebar">
-        <div class="holdings-sidebar-frame203">
-          <div class="holdings-sidebar-frame201">
-            <div class="holdings-sidebar-frame207 d-flex justify-content-between">
-              <span class="holdings-sidebar-text">{{holdingName}}</span>
-              <div class="holdings-sidebar-frame206">
-                <div class="holdings-sidebar-holdings-close">
-                  <button class="btn btn-close btn-xs" (click)="close()"></button>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex flex-column">
-              <span>
-                <span class="holdings-sidebar-text">{{ categoryyear}}</span>  |  <span class="holdings-sidebar-text2" >{{ seriesname }}</span>
-              </span>
-            </div>
-
-          </div>
-        </div>
-        <div class="holdings-sidebar-top10-holdings">
-          <div class="holdings-sidebar-top10-holdings-table">
-            <div *ngFor="let holding of top10Holdings" class="holdings-sidebar-holdings-row">
-              <div class="holdings-sidebar-frame182">
-                <div class="holdings-sidebar-frame181">
-                  <span class="holdings-sidebar-text09">{{ holding.reporting_name }}</span>
-                  <span class="holdings-sidebar-text11">${{ holding.paid_in_ytd }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <span class="holdings-sidebar-text49">. All values are Millions CAD</span>
-      </div>
+<div class="frame211-frame211">
+  <span class="frame211-text"><span>Data Labels</span></span>
+  <div class="frame211-switch">
+    <div class="frame211-handlecontainer">
+      <mat-slide-toggle class="frame211-handle" (change)="onToggleChange($event)"></mat-slide-toggle>
     </div>
   </div>
 </div>
+
+
+
+:host {
+  display: contents;
+}
+.frame211-frame211 {
+  flex-shrink: 0;
+  display: flex;
+  height: 50px;
+  padding: var(--BarRadius0, 0px) var(--BarRadius, 4px) var(--BarRadius0, 0px) 15px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--MidBarHeight, 10px);
+  border-radius: 40px;
+  border: 1px solid var(--M3-sys-light-outline-variant, #CAC4D0);
+  background: var(--M3-sys-light-surface-bright, #FEF7FF);
+}
+.frame211-text {
+  color: var(--brand-charcoal-main, #333F48);
+  /* M3/label/large */
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.1px;
+}
+.frame211-switch {
+  width: 52px;
+  height: 32px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.frame211-track {
+  top: 0px;
+  left: 0px;
+  width: 52px;
+  height: 32px;
+  position: absolute;
+  border-color: rgba(147, 97, 214, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 100px;
+}
+.frame211-handlecontainer {
+  top: -8px;
+  left: -8px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.frame211-handle {
+  top: 12px;
+  left: 12px;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  border-radius: 100px;
+}
+.frame211-visibility-off-sharp {
+  top: 16px;
+  left: 16px;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+}
+
+  @Output()  dataLabelVisbilityChange = new EventEmitter<boolean>();
+  onToggleChange(event: any):void{
+    console.log("sadvdbavd")
+    this.dange.emit(event.checked);
+    console.log("sadvdbavd", this.dange)
+  }
