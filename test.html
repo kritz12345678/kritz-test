@@ -3,72 +3,124 @@
   <div class="row mt-4 px-5">
     <div class="col">
        <span class="frame1-text">
-        <span>Portfolio Construction | Vintage</span>
+        <span>Portfolio Construction | Sector</span>
       </span>
     </div>
   </div>
 
   <!-- Main content -->
-  <mat-progress-spinner *ngIf="isLoading" color="primary" mode="indeterminate"></mat-progress-spinner>
 
-  <div class="row mt-5 px-5" *ngIf="vintageData">
+  <div class="row mt-5 px-5">
     <!-- First column -->
-    <div class="col-lg-8 frame1-charts">
+    <div class="col-lg-8 frame1-charts" *ngIf="sectorData">
       <!-- First row in the first column -->
       <div class="row mt-4">
-        <div class="col-md-6  col-xs-3 px-5 py-2">
+        <div class="col-md-12 col-lg-12  col-xs-5 px-md-5 py-2">
           <h2><span class="frame1-text02 ">
-            <span>
-              Deployment by Vintage
+           <span>
+              Sector Weightings
             </span>
           </span>
           </h2>
         </div>
-        <div class="col-md-6 col-xs-9 text-right">
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-5 col-sm-6">
-              <app-datalabel-toggle (dataLabelVisbilityChange)="onDatalabelvisibilitychange($event)"></app-datalabel-toggle>
-
-            </div>
-            <div class="col-md-5 col-sm-6">
-              <app-year-toggle-button (selectedDuration)="onselectedyear($event)"></app-year-toggle-button>
-            </div>
-          </div>
-        </div>
       </div>
-
       <!-- Second row in the first column -->
-      <div class="row mt-4 flex-grow-1">
-        <div class="col-1 pb-4 px-4">
-          <div class="frame1-y-axis-label">
-          <span class="frame1-text020">
-              <span>
-                <span>Vintage</span>
-                <br />
-                <span>IRR</span>
-              </span>
-            </span>
+      <div class="row mt-2 flex-grow-1 px-4">
+        <div id="sectorchart1" class="col-12">
+          <app-barchart (seriesClick)="handleChartSeriesClick($event)" [data]=sectorData [chartId]=sectorchartid></app-barchart>
         </div>
-        </div>
-          <div id="vin" class="col-11">
-            <app-stacked-col-chart (seriesClick)="handleChartSeriesClick($event)"  [data]=vintageData [chartId]=vintagechartid [secondaryXaxis]= secondaryAxis [clickevent]=true></app-stacked-col-chart>
-          </div>
-      </div>
-      <div class="row px-3">
-        <div class="frame1-footnotes">
+        <div class="col-12 px-4">
+          <div class="frame1-footnotes">
           <span class="frame1-text08">
             <span>* </span>
-            <span>All values are Billions CAD</span>
+            <span>Others Include Fund of Funds, Real Estate and Utilities</span>
           </span>
+          </div>
         </div>
       </div>
-    </div>
+      </div>
+
+  </div>
     <!-- Second column -->
     <div class="col-lg-4">
       <!-- Top 10 Holding component -->
       <!-- Example placeholder, replace with your component -->
-      <app-holdingssidebar *ngIf="showTop10Holdings" [data]="topHoldingsByYearAndCategory" [seriesname]="seriesName" [categoryyear]="category" (closeEvent)="hideTop10Holdings()"></app-holdingssidebar>
+      <app-holdingssidebar *ngIf="showTop10Holdings"  [holdingName]=holdingHeader [switchcategoryandseries]=true [data]="topHoldingsByYearAndCategory" [seriesname]=seriesName [categoryyear]=category (closeEvent)="hideTop10Holdings()" [year]=false></app-holdingssidebar>
     </div>
   </div>
-</div>
+
+:host {
+  display: contents;
+}
+
+.frame1-text {
+  color: #000;
+  /* M3/headline/medium */
+  font-family: Roboto;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 128.571% */
+}
+.frame1-charts {
+  width:55vw;
+  border-radius: 12px;
+  border: 1px solid var(--M3-sys-light-outline-variant, #CAC4D0);
+  background: var(--M3-white, #FFF);
+}
+.frame1-text02 {
+  color: var(--brand-charcoal-main, #333F48);
+  font-feature-settings: 'clig' off, 'liga' off;
+
+  /* Typography/H6 */
+  font-family: Roboto;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 32px */
+  letter-spacing: 0.15px;
+}
+
+.frame1-footnotes {
+  display: flex;
+  padding: 20px 0;
+  align-self: stretch;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.frame1-text08 {
+  color: rgba(99, 109, 115, 1);
+  height: auto;
+  font-size: 14px;
+  font-style: italic;
+  text-align: left;
+  font-family: Roboto;
+  font-weight: 400;
+  line-height: 16px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+
+
+.frame1-y-axis-label {
+  justify-content: flex-end;
+  margin-top: 23rem;
+}
+.frame1-text020 {
+  color: var(--M3-sys-light-primary, #6750A4);
+  text-align: center;
+
+  /* M3/label/medium - prominent */
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.5px;
+}
+
+
+
+.spinner{
+  margin-left: 80px;
+}
