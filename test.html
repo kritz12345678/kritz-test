@@ -1,87 +1,64 @@
 <div class="frame211-frame211">
   <span class="frame211-text"><span>Data Labels</span></span>
-  <div class="frame211-switch">
-    <div class="frame211-handlecontainer">
-      <mat-slide-toggle class="frame211-handle" (change)="onToggleChange($event)"></mat-slide-toggle>
-    </div>
+  <div class="frame211-switch form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="toggleSwitch" (change)="onToggleChange($event)">
+    <label class="form-check-label" for="toggleSwitch">
+      <span class="visually-hidden">Toggle Data Labels</span>
+      <i class="far fa-eye"></i> <!-- Font Awesome eye icon for "off" state -->
+      <i class="fas fa-eye"></i> <!-- Font Awesome eye icon for "on" state -->
+    </label>
   </div>
 </div>
 
-
-
-:host {
-  display: contents;
-}
 .frame211-frame211 {
   flex-shrink: 0;
   display: flex;
   height: 50px;
-  padding: var(--BarRadius0, 0px) var(--BarRadius, 4px) var(--BarRadius0, 0px) 15px;
+  padding: 0px 15px;
   justify-content: center;
   align-items: center;
-  gap: var(--MidBarHeight, 10px);
+  gap: 10px; /* Adjust as needed */
   border-radius: 40px;
-  border: 1px solid var(--M3-sys-light-outline-variant, #CAC4D0);
-  background: var(--M3-sys-light-surface-bright, #FEF7FF);
-}
-.frame211-text {
-  color: var(--brand-charcoal-main, #333F48);
-  /* M3/label/large */
-  font-family: Roboto;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px; /* 142.857% */
-  letter-spacing: 0.1px;
-}
-.frame211-switch {
-  width: 52px;
-  height: 32px;
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-shrink: 0;
-}
-.frame211-track {
-  top: 0px;
-  left: 0px;
-  width: 52px;
-  height: 32px;
-  position: absolute;
-  border-color: rgba(147, 97, 214, 1);
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 100px;
-}
-.frame211-handlecontainer {
-  top: -8px;
-  left: -8px;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  position: absolute;
-  align-items: flex-start;
-  flex-shrink: 0;
-}
-.frame211-handle {
-  top: 12px;
-  left: 12px;
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  border-radius: 100px;
-}
-.frame211-visibility-off-sharp {
-  top: 16px;
-  left: 16px;
-  width: 16px;
-  height: 16px;
-  position: absolute;
+  border: 1px solid #CAC4D0;
+  background: #FEF7FF;
 }
 
-  @Output()  dataLabelVisbilityChange = new EventEmitter<boolean>();
-  onToggleChange(event: any):void{
-    console.log("sadvdbavd")
-    this.dange.emit(event.checked);
-    console.log("sadvdbavd", this.dange)
-  }
+.frame211-text {
+  color: #333F48;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.frame211-switch {
+  display: flex;
+}
+
+.frame211-switch .form-check-input {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+.frame211-switch .form-check-label {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.frame211-switch .fa-eye {
+  font-size: 20px; /* Adjust icon size as needed */
+}
+
+/* Visually hidden class for screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
