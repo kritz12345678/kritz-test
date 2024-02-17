@@ -5,16 +5,19 @@
         <div class="holdings-sidebar-frame203">
           <div class="holdings-sidebar-frame201">
             <div class="holdings-sidebar-frame207 d-flex justify-content-between">
-              <span class="holdings-sidebar-text">Paid Ten</span>
-              <div class="d-flex flex-column align-items-end">
-                <span class="holdings-sidebar-text">{{ category }} | {{ series }}</span>
-              </div>
+              <span class="holdings-sidebar-text">{{holdingName}}</span>
               <div class="holdings-sidebar-frame206">
                 <div class="holdings-sidebar-holdings-close">
-                  <button class="btn btn-danger" (click)="close()">X</button>
+                  <button class="btn btn-close btn-xs" (click)="close()"></button>
                 </div>
               </div>
             </div>
+            <div class="d-flex flex-column">
+              <span>
+                <span class="holdings-sidebar-text">{{ categoryyear}}</span>  |  <span class="holdings-sidebar-text2" >{{ seriesname }}</span>
+              </span>
+            </div>
+
           </div>
         </div>
         <div class="holdings-sidebar-top10-holdings">
