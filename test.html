@@ -18,3 +18,14 @@
   content: "\2713"; /* Unicode for the tick mark */
   padding-right: 5px;
 }
+ selectedYear: string = '5'; // Initially set to '5'
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onDurationChange(event: any) {
+    this.selectedYear = event.value; // Update selectedYear based on the button clicked
+  }
+}
