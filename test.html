@@ -1,6 +1,8 @@
-       <div class="col-12 d-flex flex-column  ">
-           <p class="note-in-summary px-3 py-3">
-             <mat-icon>{{changeSign ==='+'? 'trending_up' : 'trending_down'}}</mat-icon>
-             {{changeSign}}{{changeInaum}}% since last quarter
-         </p>
-       </div>
+    <div class="row mt-4" >
+        <div class="col-sm-4 col-md-4 paid-in-capital ">
+          <app-paid-in-capital  [paidinCapital]=paidIncapital [paidinCapital]=paidIncapital [commitment]=commitmentValue></app-paid-in-capital>
+        </div>
+        <div class="col-sm-8  col-md-8 irr-container">
+          <app-irr-moc [subtitle]="'IRR'" [sinceinception]=irrSinceinception [tenyear]=irrtenYears [fiveyear]=irrfiveYears> </app-irr-moc>
+        </div>
+      </div>
