@@ -1,32 +1,20 @@
-import {
-  chartstyle, LegendOptions,
-  SeriesOptionsType,
-  TooltipOptions, yAxisOptions
-} from "../libs/highcharts/base-chart/ChartOptions";
-import {PlotOptions, stackedColumnChartOptions} from "../libs/highcharts/stacked-col-chart/stacked-col-chartoptions";
-import {
-  defaultchartstyle,
-  defaultLegendOptions,
-  defaultNormalPlotOptions,
-  defaultPercentPlotOptions,
-  defaultToolTip, defaultyAxis
-} from "../libs/highcharts/stacked-col-chart/defaultconfig";
-
 export class normalstrategyChartoptions implements stackedColumnChartOptions {
+  linkedChart?: any;
 
-  constructor(categories:string[],seriesData:SeriesOptionsType[], chartType:string) {
-
+  constructor(categories: string[], seriesData: SeriesOptionsType[], chartType: string) {
     this.categories = categories;
     this.series = seriesData;
-    if(chartType == 'normal'){
-        this.tooltip = {
-          enabled: true,
-          headerFormat: '<b>{point.x}</b><br/>',
-          formatter: function () {
-            const self = this as any;
-            return '<span style="color:' + self.point.color + '">' +self.series.name + ': $' + (self.y / 1000000000).toFixed(1) + 'B<br/>Total: $' + (self.total / 1000000000).toFixed(1) + 'B';
-          }
+
+    if (chartType === 'normal') {
+      this.tooltip = {
+        enabled: true,
+        headerFormat: '<b>{point.x}</b><br/>',
+        formatter: function () {
+          const self = this as any;
+          return '<span style="color:' + self.point.color + '">' + self.series.name + ': $' + (self.y / 1000000000).toFixed(1) + 'B<br/>Total: $' + (self.total / 1000000000).toFixed(1) + 'B';
         }
+      };
+
       this.plotOptions = {
         ...defaultNormalPlotOptions,
         column: {
@@ -44,19 +32,22 @@ export class normalstrategyChartoptions implements stackedColumnChartOptions {
               fontWeight: '600',
               lineHeight: '16px'
             }
-          }, pointWidth: 90,
+          },
+          pointWidth: 90,
         }
-      }
-      this.chartstyle ={
-        height:'330',
-        marginTop:80,
-        width:'700'
-      }
-      this.yAxis=[{
+      };
+
+      this.chartstyle = {
+        height: '330',
+        marginTop: 80,
+        width: '700'
+      };
+
+      this.yAxis = [{
         labels: {
           enabled: true,
           step: 0,
-          formatter: function() {
+          formatter: function () {
             return (this as any).value / 1000000000 + 'B'; // Dividing by 1 billion to convert to billions
           }
         },
@@ -65,33 +56,36 @@ export class normalstrategyChartoptions implements stackedColumnChartOptions {
           formatter: function () {
             return '$' + (this as any).total / 1000000000;
           }
-        },gridLineWidth: 0,
+        },
+        gridLineWidth: 0,
         lineWidth: 0,
         title: {
           text: ''
         }
       }];
+
       this.legend = {
-        ...defaultLegendOptions
-      }
-      /*this.chartstyle ={
-        marginTop:100,
-        }*/
-      }
-    else
-    if(chartType=='percentage'){
+        ...defaultLegendOptions,
+        itemClick: function (event: any) {
+          if (this.linkedChart) {
+            const seriesIndex = event.target.index;
+            const series = this.linkedChart.series[seriesIndex];
+            if (series) {
+              series.visible ? series.hide() : series.show();
+            }
+          }
+        }
+      };
+    } else if (chartType === 'percentage') {
       this.tooltip = {
         enabled: true,
         headerFormat: '<b>{point.x}</b><br/>',
-/*
-        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}%</b><br/>'
-*/
         formatter: function () {
           const self = this as any;
           return '<span style="color:' + self.point.color + '">' + self.series.name + '</span>: <b>' + Math.round((self.y / self.total) * 100) + '%</b><br/>';
         }
-
       };
+
       this.plotOptions = {
         ...defaultPercentPlotOptions,
         column: {
@@ -110,46 +104,40 @@ export class normalstrategyChartoptions implements stackedColumnChartOptions {
               fontWeight: '600',
               lineHeight: '16px'
             }
-          }, pointWidth: 90,
+          },
+          pointWidth: 90,
         }
-      }
-      this.chartstyle ={
-        height:'290',
-        marginTop:30,
-        width:'700'
-      }
+      };
 
-      this.yAxis=[{
+      this.chartstyle = {
+        height: '290',
+        marginTop: 30,
+        width: '700'
+      };
+
+      this.yAxis = [{
         labels: {
           enabled: true
-/*
-          step: 2,
-*/
         },
         gridLineWidth: 0,
         lineWidth: 0,
-        max: 100 ,// Setting the max value of the y-axis to 100
+        max: 100, // Setting the max value of the y-axis to 100
         title: {
           text: ''
         }
       }];
 
       this.legend = {
-        enabled:false
-      }
-
-    }
-    else {
-      this.tooltip =defaultToolTip;
-      this.plotOptions= defaultNormalPlotOptions;
-      this.chartstyle=defaultchartstyle;
-      this.yAxis=defaultyAxis;
+        enabled: false
+      };
+    } else {
+      this.tooltip = defaultToolTip;
+      this.plotOptions = defaultNormalPlotOptions;
+      this.chartstyle = defaultchartstyle;
+      this.yAxis = defaultyAxis;
       this.legend = defaultLegendOptions;
     }
   }
-
-
-
 
   categories: string[];
   plotOptions: PlotOptions | undefined;
@@ -157,211 +145,5 @@ export class normalstrategyChartoptions implements stackedColumnChartOptions {
   tooltip: TooltipOptions;
   chartstyle: chartstyle;
   yAxis: yAxisOptions[];
-  legend:LegendOptions;
-
+  legend: LegendOptions;
 }
-
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {StrategyServiceService} from "./strategy-service.service";
-import {ChartServiceService} from "../libs/highcharts/chart-service.service";
-import {SeriesOptionsType} from "../libs/highcharts/base-chart/ChartOptions";
-import {StrategyData} from "./StrategyData";
-import {catchError, throwError} from "rxjs";
-import {normalstrategyChartoptions} from "./normalstrategyChartoptions";
-import {stackedColumnChartOptions} from "../libs/highcharts/stacked-col-chart/stacked-col-chartoptions";
-import {SharedService} from "../shared/shared.service";
-import {StackedColChartComponent} from "../libs/highcharts/stacked-col-chart/stacked-col-chart.component";
-
-
-@Component({
-  selector: 'app-strategy',
-  templateUrl: './strategy.component.html',
-  styleUrls: ['./strategy.component.css']
-})
-export class StrategyComponent implements OnInit {
-
-  constructor(private StrategyService: StrategyServiceService, private chartService: ChartServiceService, private sharedService: SharedService) {
-  }
-
-  aumData?: stackedColumnChartOptions; // Define a variable to store fetched data
-  percentAumData?:stackedColumnChartOptions;
-  /* @Input() chartID!: string;
-   @Input() chartType!: string;*/
-  private backendData?: StrategyData;
-  selectedYear: number = 5;
-  normalStackedChart: string = 'normal';
-  percentStackedChart: string = 'percentage';
-  normalchartid: string = 'normal-strategy-chart';
-  percentagechartid: string = 'percentage-strategy-chart'
-  holdingName ="Top 10 Holdings"
-  showTop10Holdings: boolean =false;
-  topHoldingsByYearAndCategory: { [key: string]: any } = {};
-  seriesName?:string;
-  category?:string;
-  @ViewChild(StackedColChartComponent)
-  stackedColChartComponent!:StackedColChartComponent
-
-
-
-  ngOnInit(): void {
-    this.loadAumData();
-
-  }
-  hideTop10Holdings() {
-    this.showTop10Holdings = false;
-  }
-
-
-  handleChartseriesclick(event:{seriesName:string; category:string}){
-    console.log('public comp',event.seriesName,event.category);
-    this.showTop10Holdings=true;
-    this.seriesName= event.seriesName;
-    this.category= event.category;
-    console.log('show data',this.backendData)
-    this.calculateTop10holdings(this.backendData,this.seriesName,this.category);
-  }
-  calculateTop10holdings(data: StrategyData | undefined, strategy_name: string, year: string) {
-    this.topHoldingsByYearAndCategory = {}
-    for (const yearData of data?.data?.fiscalYears || []) {
-      if (yearData.year === year) {
-        for (const strategy of yearData.strategy) {
-          if (strategy.name === strategy_name) {
-            if (!this.topHoldingsByYearAndCategory[yearData.year]) {
-              this.topHoldingsByYearAndCategory[yearData.year] = {};
-            }
-            const sortedStrategyData = [...strategy.top_holdings]
-              .sort((a, b) => b.carrying_value - a.carrying_value)
-              .slice(0, 10)
-              .map(holding => ({
-                reporting_name: holding.reporting_name,
-                paid_in_ytd: this.sharedService.convertToMillions(holding.carrying_value)
-              }));
-            this.topHoldingsByYearAndCategory[yearData.year][strategy.name] = sortedStrategyData;
-            break;
-          }
-        }
-      }
-    }
-    console.log('topHoldingsByYearAndCategory', this.topHoldingsByYearAndCategory);
-  }
-
-  onDatalabelvisibilitychange(visible: boolean) {
-    if(this.aumData && this.aumData.plotOptions?.column?.dataLabels){
-      this.sharedService.datalabeltoggle(visible,this.normalchartid,this.aumData,this.stackedColChartComponent,'column');
-    }
-    if(this.percentAumData && this.percentAumData.plotOptions?.column?.dataLabels){
-      this.sharedService.datalabeltoggle(visible,this.percentagechartid,this.percentAumData,this.stackedColChartComponent,'column');
-    }
-  }
-
-  loadAumData(): void {
-    this.StrategyService.getAUMData()
-      .pipe(
-        catchError(error => {
-          console.error('Error fetching AUM data:', error);
-          return throwError(error);
-        })
-      )
-      .subscribe(
-        data => {
-          // Convert total_value to billions
-          this.backendData = data;
-          console.log('data',data)
-          const normalData = new normalstrategyChartoptions(this.getcategoriesfromdata(data, this.selectedYear)
-            , this.getdatabyselection(data, this.selectedYear),this.normalStackedChart);
-          const percentData = new normalstrategyChartoptions(this.getcategoriesfromdata(data, this.selectedYear)
-            , this.getdatabyselection(data, this.selectedYear),this.percentStackedChart);
-          console.error('transformed' + JSON.stringify(normalData));
-
-          if (normalData !== null) {
-            this.aumData = normalData;
-          } else {
-// Handle the null case, if needed
-            console.error('Failed to transform data into ChartOptions');
-          }
-
-// Add new condition
-          if (percentData !== null) {
-            this.percentAumData = percentData;
-          } else {
-// Handle the null case, if needed
-            console.error('Failed to transform percent data into ChartOptions');
-          }
-        }
-      );
-  }
-
-  onSelectedyear(years: number) {
-
-    if(this.aumData && this.aumData.categories && this.percentAumData && this.percentAumData.categories){
-      if(this.backendData) {
-        this.aumData.categories = this.percentAumData.categories= this.getcategoriesfromdata(this.backendData, years);
-        this.aumData.series = this.percentAumData.series=this.getdatabyselection(this.backendData, years);
-        if(this.aumData.plotOptions?.column?.pointWidth && this.percentAumData.plotOptions?.column?.pointWidth) {
-          if (years ==10) {
-            this.aumData.plotOptions.column.pointWidth = 50
-            this.percentAumData.plotOptions.column.pointWidth = 50
-          }
-          else {
-            this.aumData.plotOptions.column.pointWidth = 88
-            this.percentAumData.plotOptions.column.pointWidth = 88
-          }
-        }
-        this.sharedService.yearToggle(years,this.normalchartid,this.aumData,this.stackedColChartComponent);
-        this.sharedService.yearToggle(years,this.percentagechartid,this.percentAumData,this.stackedColChartComponent);
-
-      }
-    }
-
-  }
-
-  getcategoriesfromdata(sData: StrategyData, selectedYear: number) {
-    const result = sData.data.fiscalYears.slice(this.getSlicecount(this.getYtd(sData),selectedYear)).map(yearData => String(yearData.year));
-    return result
-    console.log('result',result)
-  }
-
-
-  getdatabyselection(sData: StrategyData, selectedYear: number) {
-    // Setting legend based on the number of categories
-
-    const fixedSeriesNames = this.sharedService.strategy_legend_categoryOrder
-
-    const seriesData: SeriesOptionsType[] = fixedSeriesNames.map(department => {
-      const departmentData: number[] = [];
-      sData.data.fiscalYears.slice(-selectedYear).forEach(year => {
-        const deptForYear = year.strategy.find(d => d.name === department);
-        departmentData.push(deptForYear ? deptForYear.aumValue: 0);
-      });
-      const colorKey = department;
-      const color = this.sharedService.getColor(colorKey);
-
-      return {
-        type: 'column',
-        name: department,
-        data: departmentData,
-        color: color
-      };
-    });
-    console.log('seriesdata1', seriesData);
-    seriesData.sort((a, b) => this.sharedService.strategy_legend_categoryOrder.indexOf(a.name ?? "") - this.sharedService.vintage_legend_categoryOrder.indexOf(b.name ?? ""));
-    return seriesData;
-
-  }
-
-
-  getSlicecount(isYTD:boolean,selectedyear:number){
-    const selectedYearAsNumber = Number(selectedyear);
-    const sliceCount = isYTD ? -(selectedYearAsNumber+1) : -selectedYearAsNumber;
-    console.log('sliceCount-getcategoriesfromdata', sliceCount)
-    return sliceCount
-  }
-
-
-  getYtd(data: StrategyData){
-    return data.data.fiscalYears.slice(-1)[0].year.includes('YTD');
-
-  }
-
-}
-
