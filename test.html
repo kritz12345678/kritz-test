@@ -1,56 +1,6 @@
-<div class="container-fluid">
-  <div class="row">
-    <!-- Summary Column -->
-    <div class="col-lg-8">
-      <!-- First Row -->
-      <div class="row mb-4">
-        <div class="col">
-          <div class="rounded p-3">
-            <div class="mb-2">AUM</div>
-            <div class="mb-2">78</div>
-            <div class="mb-2">Since Last</div>
-          </div>
-        </div>
-        <div class="col">
-          <app-chart-component></app-chart-component>
-          <div>Total</div>
-        </div>
-        <div class="col">
-          <hr class="my-4">
-          <div>Exposure</div>
-          <div>Value</div>
-        </div>
-      </div>
-
-      <!-- Second Row -->
-      <div class="row mb-4">
-        <div class="col">
-          <div class="rounded p-3 text-center">
-            <div class="mb-2">Content 1</div>
-            <div class="mb-2">Content 2</div>
-            <div class="mb-2">Content 3</div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="rounded p-3">
-            <div>Word 1</div>
-            <div>Word 2</div>
-            <div>Word 3</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Third Row (Similar to Second Row) -->
-      <!-- Add your code here -->
-
-    </div>
-
-    <!-- Portfolio Column -->
-    <div class="col-lg-4">
-      <div class="rounded p-3 mb-4">
-        <h2>Portfolio Heading</h2>
-      </div>
-      <app-chart-component></app-chart-component>
-    </div>
-  </div>
-</div>
+       <div class="col-12 ">
+         <mat-icon>trending_up</mat-icon>
+           <p class="note-in-summary px-3 py-3">
+           {{changeSign}}{{changeInaum}}% since last quarter
+         </p>
+       </div>
