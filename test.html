@@ -1,6 +1,6 @@
-       <div class="col-12 ">
-         <mat-icon>trending_up</mat-icon>
+       <div class="col-12 d-flex flex-column  ">
            <p class="note-in-summary px-3 py-3">
-           {{changeSign}}{{changeInaum}}% since last quarter
+             <mat-icon>{{changeSign ==='+'? 'trending_up' : 'trending_down'}}</mat-icon>
+             {{changeSign}}{{changeInaum}}% since last quarter
          </p>
        </div>
