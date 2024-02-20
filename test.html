@@ -1,222 +1,23 @@
+        const normalSeriesData = this.getSeriesData(data, this.selectedYear, 'normal');
+        const percentSeriesData = this.getSeriesData(data, this.selectedYear, 'percentage');
 
- loadAumData(): void {
-    this.StrategyService.getAUMData()
-      .pipe(
-        catchError(error => {
-          console.error('Error fetching AUM data:', error);
-          return throwError(error);
-        })
-      )
-      .subscribe(
-        data => {
-          // Convert total_value to billions
-          this.backendData = data;
-          console.log('data',data)
-          const normalData = new normalstrategyChartoptions(this.getcategoriesfromdata(data, this.selectedYear)
-            , this.getdatabyselection(data, this.selectedYear),this.normalStackedChart);
-          const percentData = new normalstrategyChartoptions(this.getcategoriesfromdata(data, this.selectedYear)
-            , this.getdatabyselection(data, this.selectedYear),this.percentStackedChart);
-          console.error('transformed' + JSON.stringify(normalData));
+        this.aumData = new NormalStrategyChartOptions(
+          this.getCategoriesFromData(data, this.selectedYear),
+          normalSeriesData,
+          'normal'
+        );
 
-          if (normalData !== null) {
-            this.aumData = normalData;
-          } else {
-// Handle the null case, if needed
-            console.error('Failed to transform data into ChartOptions');
-          }
+        this.percentAumData = new NormalStrategyChartOptions(
+          this.getCategoriesFromData(data, this.selectedYear),
+          percentSeriesData,
+          'percentage'
+        );
 
-// Add new condition
-          if (percentData !== null) {
-            this.percentAumData = percentData;
-          } else {
-// Handle the null case, if needed
-            console.error('Failed to transform percent data into ChartOptions');
-          }
-        }
-      );
-  }
-
-
- getcategoriesfromdata(sData: StrategyData, selectedYear: number) {
-    const result = sData.data.fiscalYears.slice(this.getSlicecount(this.getYtd(sData),selectedYear)).map(yearData => String(yearData.year));
-    console.log('result',result)
-    return result
-
-  }
-
-
-  getdatabyselection(sData: StrategyData, selectedYear: number) {
-    // Setting legend based on the number of categories
-
-    const fixedSeriesNames = this.sharedService.strategy_legend_categoryOrder
-    const isYTD =this.getYtd(sData);
-
-    const seriesData: SeriesOptionsType[] = fixedSeriesNames.map(department => {
-      const departmentData: number[] = [];
-      sData.data.fiscalYears.slice(this.getSlicecount(isYTD,selectedYear)).forEach(year => {
-        const deptForYear = year.strategy.find(d => d.name === department);
-        departmentData.push(deptForYear ? this.sharedService.convertToBillions(deptForYear.aumValue): 0);
-      });
-      const colorKey = department;
-      const color = this.sharedService.getColor(colorKey);
-
-      return {
-        type: 'column',
-        name: department,
-        data: departmentData,
-        color: color
-      };
-    });
-    console.log('seriesdata1', seriesData);
-    seriesData.sort((a, b) => this.sharedService.strategy_legend_categoryOrder.indexOf(a.name ?? "") - this.sharedService.vintage_legend_categoryOrder.indexOf(b.name ?? ""));
-    return seriesData;
-
-  }
-
-
-
-export class normalstrategyChartoptions implements stackedColumnChartOptions {
-
-  constructor(categories:string[],seriesData:SeriesOptionsType[], chartType:string) {
-
-    this.categories = categories;
-    this.series = seriesData;
-    if(chartType == 'normal'){
-        this.tooltip = {
-          enabled: true,
-          headerFormat: '<b>{point.x}</b><br/>',
-          formatter: function () {
-            const self = this as any;
-            return '<span style="color:' + self.point.color + '">' +self.series.name + ': $' + (self.y).toFixed(0) + 'B<br/>Total: $' + (self.total).toFixed(0) + 'B';
-          }
-        }
-      this.plotOptions = {
-        ...defaultNormalPlotOptions,
-        column: {
-          stacking: 'normal',
-          dataLabels: {
-            enabled: false,
-            formatter: function () {
-              return '$' + ((this as any).y).toFixed(0);
-            },
-            style: {
-              color: '#636D73',
-              textAlign: 'center',
-              fontFamily: 'Roboto',
-              fontSize: '14px',
-              fontWeight: '600',
-              lineHeight: '16px'
-            }
-          }, pointWidth: 90,
+        // Set linkedTo property to synchronize legends
+        for (let i = 0; i < normalSeriesData.length; i++) {
+          this.percentAumData.series[i].linkedTo = this.aumData.series[i].id;
         }
       }
-      this.chartstyle ={
-        height:'330',
-        marginTop:80,
-        width:'700'
-      }
-      this.yAxis=[{
-        labels: {
-          enabled: true,
-          crop: false,
-          step: 0,
-          formatter: function() {
-            return '$' +(this as any).value + 'B'; // Dividing by 1 billion to convert to billions
-          }
-        },
-        stackLabels: {
-          enabled: true,
-          formatter: function () {
-            return '$' + (this as any).total.toFixed(0);
-          }
-        },gridLineWidth: 0,
-        lineWidth: 0,
-        title: {
-          text: ''
-        }
-      }];
-      this.legend = {
-        ...defaultLegendOptions
-      }
-      }
-    else
-    if(chartType=='percentage'){
-      this.tooltip = {
-        enabled: true,
-        headerFormat: '<b>{point.x}</b><br/>',
-        formatter: function () {
-          const self = this as any;
-          return '<span style="color:' + self.point.color + '">' + self.series.name + '</span>: <b>' + Math.round((self.y / self.total) * 100) + '%</b><br/>';
-        }
-
-      };
-      this.plotOptions = {
-        ...defaultPercentPlotOptions,
-        column: {
-          stacking: 'percent',
-          dataLabels: {
-            enabled: false,
-            formatter: function () {
-              const self = this as any;
-              return Math.round((self.y / self.total) * 100) + '%';
-            },
-            style: {
-              color: '#636D73',
-              textAlign: 'center',
-              fontFamily: 'Roboto',
-              fontSize: '14px',
-              fontWeight: '600',
-              lineHeight: '16px'
-            }
-          }, pointWidth: 90,
-        }
-      }
-      this.chartstyle ={
-        height:'290',
-        marginTop:30,
-        width:'700'
-      }
-
-      this.yAxis=[{
-        labels: {
-          enabled: true,
-          formatter: function() {
-            return (this as any).value + '%'; // Dividing by 1 billion to convert to billions
-          }
-          /*step: 2,*/
-        },
-        gridLineWidth: 0,
-        lineWidth: 0,
-        max: 100 ,// Setting the max value of the y-axis to 100
-        title: {
-          text: ''
-        }
-      }];
-
-      this.legend = {
-        enabled:false
-      }
-
-    }
-    else {
-      this.tooltip =defaultToolTip;
-      this.plotOptions= defaultNormalPlotOptions;
-      this.chartstyle=defaultchartstyle;
-      this.yAxis=defaultyAxis;
-      this.legend = defaultLegendOptions;
-    }
-  }
-
-
-
-
-  categories: string[];
-  plotOptions: PlotOptions | undefined;
-  series: SeriesOptionsType[];
-  tooltip: TooltipOptions;
-  chartstyle: chartstyle;
-  yAxis: yAxisOptions[];
-  legend:LegendOptions;
-
+    );
 }
 
