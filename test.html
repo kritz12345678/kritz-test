@@ -1,52 +1,9 @@
-
-
-  loadAumData(): void {
-    this.StrategyService.getAUMData()
-      .pipe(
-        catchError(error => {
-          console.error('Error fetching AUM data:', error);
-          return throwError(error);
-        })
-      )
-      .subscribe(
-        data => {
-          // Convert total_value to billions
-          this.backendData = data;
-          console.log('data',data)
-
-          const seriesData = this.getSeriesData(data, this.selectedYear);
-          const categoriesData= this.getcategoriesfromdata(data, this.selectedYear)
-
-          const normalData = new normalstrategyChartoptions(categoriesData,seriesData,this.normalStackedChart);
-          const percentData = new normalstrategyChartoptions(categoriesData,seriesData,this.percentStackedChart);
-          console.error('transformed' + JSON.stringify(normalData));
-
-
-
-          if (normalData !== null) {
-            this.aumData = normalData;
-          } else {
-// Handle the null case, if needed
-            console.error('Failed to transform data into ChartOptions');
-          }
-
-// Add new condition
-          if (percentData !== null) {
-            this.percentAumData = percentData;
-          } else {
-// Handle the null case, if needed
-            console.error('Failed to transform percent data into ChartOptions');
-          }
-
-          // Set linkedTo property to synchronize legends
-
-          for (let i = 0; i < seriesData.length; i++) {
-            if (this.percentAumData && "series" in this.percentAumData) {
-              if (this.aumData && "series" in this.aumData)  {
+if (this.percentAumData && this.percentAumData.ready && this.aumData && this.aumData.ready) {
+          this.percentAumData.ready.subscribe(() => {
+            if (this.percentAumData && this.percentAumData.series && this.aumData && this.aumData.series) {
+              for (let i = 0; i < seriesData.length; i++) {
                 this.percentAumData.series[i].linkedTo = this.aumData.series[i].id;
               }
             }
-          }
+          });
         }
-      );
-  }
