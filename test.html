@@ -1,15 +1,61 @@
-        // Set linkedTo property to synchronize legends
-        for (let i = 0; i < seriesData.length; i++) {
-          if (percentData && "series" in percentData) {
-            if (normalData && "series" in normalData) {
-              // Set unique IDs for each series
-              const normalSeriesId = `normal-series-${i}`;
-              const percentSeriesId = `percent-series-${i}`;
-
-              normalData.series[i].id = normalSeriesId;
-              percentData.series[i].id = percentSeriesId;
-
-              percentData.series[i].linkedTo = normalSeriesId;
-            }
-          }
-        }
+series
+: 
+Array(5)
+0
+: 
+color
+: 
+"#3D93D8"
+data
+: 
+(6) [32.8, 37.9, 53.2, 49.5, 51, 55.9]
+id
+: 
+"percent-series-0"
+linkedTo
+: 
+"normal-series-0"
+name
+: 
+"DPE"
+type
+: 
+"column"
+[[Prototype]]
+: 
+Object
+1
+: 
+color
+: 
+"#3DBFB6"
+data
+: 
+(6) [32.5, 33.4, 41.1, 52.2, 52.4, 48.8]
+id
+: 
+"percent-series-1"
+linkedTo
+: 
+"normal-series-1"
+name
+: 
+"PE Funds"
+type
+: 
+"column"
+[[Prototype]]
+: 
+Object
+2
+: 
+{type: 'column', name: 'PE Asia', data: Array(6), color: '#CFDE3D', id: 'percent-series-2', …}
+3
+: 
+{type: 'column', name: 'Secondaries', data: Array(6), color: '#EFA53D', id: 'percent-series-3', …}
+4
+: 
+{type: 'column', name: 'GE', data: Array(6), color: '#BF50BF', id: 'percent-series-4', …}
+length
+: 
+5
