@@ -1,35 +1,15 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import * as Highcharts from 'highcharts';
-import {HighchartsChartModule} from "highcharts-angular";
-import {ChartServiceService} from "../chart-service.service";
+        // Set linkedTo property to synchronize legends
+        for (let i = 0; i < seriesData.length; i++) {
+          if (percentData && "series" in percentData) {
+            if (normalData && "series" in normalData) {
+              // Set unique IDs for each series
+              const normalSeriesId = `normal-series-${i}`;
+              const percentSeriesId = `percent-series-${i}`;
 
-@Component({
-  selector: 'app-base-chart',
-  templateUrl: './base-chart.component.html',
-  styleUrls: ['./base-chart.component.css']
-})
-export class BaseChartComponent {
+              normalData.series[i].id = normalSeriesId;
+              percentData.series[i].id = percentSeriesId;
 
-  Highcharts: typeof Highcharts = Highcharts;
-  @Input() clickevent:Boolean = true
-  @Input() chartOptions?: Highcharts.Options ;
-  @Input() chartId!: string;
-   @Output() chartSeriesClick: EventEmitter<{ seriesName: string; category: string }>=new EventEmitter();
-  @Output() ready:EventEmitter<void>= new EventEmitter<void>()
-
-  constructor(private  chartService: ChartServiceService) {}
-
-  ngOnInit(): void {
-    console.log("ddd", this.chartId)
-    if (this.chartOptions) {
-      const chartInstance = Highcharts.chart(this.chartId, this.chartOptions);
-      this.chartService.setchartInstances(this.chartId, chartInstance);
-      if (this.clickevent)
-        this.chartService.setclickfunction(chartInstance,this.chartSeriesClick);
-    } else {
-      console.error('ChartOptionsis undefined');
-    }
-    this.ready.emit();
-
-  }
-}
+              percentData.series[i].linkedTo = normalSeriesId;
+            }
+          }
+        }
