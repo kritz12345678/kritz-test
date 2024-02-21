@@ -1,9 +1,163 @@
-if (this.percentAumData && this.percentAumData.ready && this.aumData && this.aumData.ready) {
-          this.percentAumData.ready.subscribe(() => {
-            if (this.percentAumData && this.percentAumData.series && this.aumData && this.aumData.series) {
-              for (let i = 0; i < seriesData.length; i++) {
-                this.percentAumData.series[i].linkedTo = this.aumData.series[i].id;
-              }
-            }
-          });
+<div class="container-fluid">
+  <!-- Heading -->
+  <div class="row mt-4 px-5">
+    <div class="col">
+       <span class="frame1-text">
+        <span>Portfolio Construction | Strategy</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Main content -->
+
+  <div class="row mt-3 px-5">
+    <!-- First column -->
+    <div class="col-lg-8 frame1-charts" *ngIf="aumData">
+      <!-- First row in the first column -->
+      <div class="row mt-4">
+        <div class="col-md-6  col-xs-3 px-5 py-2">
+          <h2><span class="frame1-text02 ">
+          <span>Strategy AUM Over Time ($)</span>
+            </span>
+          </h2>
+        </div>
+        <div class="col-md-6 col-xs-9 text-right">
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-5 col-sm-6">
+              <app-datalabel-toggle (dataLabelVisbilityChange)="onDatalabelvisibilitychange($event)"> </app-datalabel-toggle>
+
+            </div>
+            <div class="col-md-5 col-sm-6">
+              <app-year-toggle-button (selectedDuration)="onSelectedyear($event)"></app-year-toggle-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Second row in the first column -->
+      <div class="row mt-4 flex-grow-1 px-3">
+        <div id="normal-strategy-chart" class="col-12">
+          <app-stacked-col-chart (seriesClick)="handleChartseriesclick($event)" (ready)="synclegends()" [data]=aumData [chartId]=normalchartid ></app-stacked-col-chart>
+        </div>
+        <div class="col-12 mt-4">
+          <span class="charts-text066">
+          <span>Strategy AUM Over Time (%)</span>
+        </span>
+        </div>
+        <div id="percentage-strategy-chart" class="col-12 mt-4">
+          <app-stacked-col-chart (seriesClick)="handleChartseriesclick($event)" (ready)="synclegends()" [data]=percentAumData [chartId]=percentagechartid></app-stacked-col-chart>
+        </div>
+        <div class="col-12 px-3">
+          <div class="frame1-footnotes">
+          <span class="frame1-text08">
+            <span>* </span>
+            <span>All values are Billions CAD</span>
+          </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Second column -->
+    <div class="col-lg-4">
+      <!-- Top 10 Holding component -->
+      <!-- Example placeholder, replace with your component -->
+      <app-holdingssidebar *ngIf="showTop10Holdings"  [holdingName]=holdingName [data]="topHoldingsByYearAndCategory" [seriesname]="seriesName" [categoryyear]="category" (closeEvent)="hideTop10Holdings()"></app-holdingssidebar>
+    </div>
+  </div>
+</div>
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import * as Highcharts from 'highcharts';
+import {ChartBuilder} from "../base-chart/ChartBuilder";
+import {LegendOptions, PlotOptions} from 'highcharts';
+import {ChartOptions} from "../base-chart/ChartOptions";
+import {
+  defaultchartstyle,
+  defaultLegendOptions,
+  defaultNormalPlotOptions,
+  defaultToolTip,
+  defaultxAxis,
+  defaultyAxis
+} from "./defaultconfig";
+import {ChartServiceService} from "../chart-service.service";
+import {stackedColumnChartOptions} from "./stacked-col-chartoptions";
+
+
+@Component({
+  selector: 'app-stacked-col-chart',
+  templateUrl: './stacked-col-chart.component.html',
+  styleUrls: ['./stacked-col-chart.component.css']
+})
+export class StackedColChartComponent implements OnInit {
+
+  @Input() chartId: string = ''; // Default value*/
+  @Input() clickevent:Boolean = true
+  @Input() data: ChartOptions | undefined; // Input data from parent component
+  @Input() secondaryXaxis: boolean = false;
+
+  @Output() seriesClick: EventEmitter<{ seriesName: string; category: string }>=new EventEmitter();
+  @Output() ready:EventEmitter<void>= new EventEmitter<void>()
+
+
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options = {}; // Initialize with default options
+  constructor(private chartService: ChartServiceService) {
+  }
+
+  ngOnInit(): void {
+    if (this.data) {
+      console.log("stacked col chart-base",JSON.stringify(this.data))     ;
+      this.chartOptions = this.generateChartOptions(this.data);
+    } else {
+      console.error('SectorData is undefined'); // Log an error message if data is undefined
+    }
+  }
+
+  updatechartOptions(chartId:string, updatedOption: stackedColumnChartOptions):void {
+    const stackedcolchartref = this.chartService.getchartInstances(chartId);
+    if(stackedcolchartref)
+    {
+      console.log('year updated options', updatedOption);
+      console.log('clickevent', this.clickevent);
+      stackedcolchartref.update(this.generateChartOptions(updatedOption));
+      if (this.clickevent)
+        this.chartService.setclickfunction(stackedcolchartref,this.seriesClick);
+    }
+  }
+
+  /*
+    generateChartOptions(data: SectorData): Highcharts.Options {
+  */
+  generateChartOptions(data: stackedColumnChartOptions): Highcharts.Options {
+    console.log('hello navroop');
+    const legendOptions = data.legend ? data.legend : defaultLegendOptions;
+    const plotOptions = data.plotOptions ? data.plotOptions : defaultNormalPlotOptions;
+    const tooltipOptions = data.tooltip? data.tooltip: defaultToolTip;
+    const xAxisOptions = data.xAxis? data.xAxis: defaultxAxis;
+    console.log('defaultxaxis', xAxisOptions)
+    const yAxisOptions = data.yAxis? data.yAxis: defaultyAxis;
+    const chartStyle = data.chartstyle?data.chartstyle: defaultchartstyle;
+
+    console.log('yaxis',yAxisOptions)
+/*
+    const yAxislabel= data.yAxisLables? data.yAxisLables: defaultyaxislabel;
+*/
+
+
+    const chartBuilder = new ChartBuilder()
+      .setChartType('column')
+      .setTitle(data.title)
+      .setchartStyle(data.chartstyle)
+      .setXAxisGrid(xAxisOptions)
+      .setYAxisGrid(yAxisOptions)
+      .setXAxisPrimary(data.categories)
+        if(this.secondaryXaxis) {
+          chartBuilder.addSecondaryXAxis(data.secondarycategory);
         }
+        return chartBuilder
+      .setSeries(data.series)
+      .setPlotOptions(plotOptions as PlotOptions)
+      .setLegendOptions(legendOptions as LegendOptions)
+      .setToolTipOptions(tooltipOptions)
+      .build();
+  }
+ }
